@@ -29,7 +29,7 @@ An automated, policy-driven cloud cost governance and optimization platform desi
 
 ---
  🏗️ Architecture
-
+```
 +--------------------------------------------+
    |           CloudCost Guard Core             |
    +--------------------------------------------+
@@ -46,7 +46,7 @@ An automated, policy-driven cloud cost governance and optimization platform desi
         |                             |
         v                             v
  [ Slack Alerts ]            [ Auto-Remediation ]
-
+```
  🛠️ Tech Stack
 
   Core Engine:** Python (FastAPI, Celery)
