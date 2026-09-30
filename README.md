@@ -7,7 +7,7 @@ An automated, policy-driven cloud cost governance and optimization platform desi
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/MadhavPendyala/cloudcost-guard/ci.yml?branch=main)](https://github.com/MadhavPendyala/cloudcost-guard/actions)
-[![Docker Hub](https://img.shields.io/docker/v/MadhavPendyala/cloudcost-guard?label=docker)](https://hub.docker.com/)
+[![Docker Hub](https://img.shields.io/docker/v/tony141203/cloudcost-guard?label=docker)](https://hub.docker.com/)
 
 </div>
 
