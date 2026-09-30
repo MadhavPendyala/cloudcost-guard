@@ -9,6 +9,10 @@ An automated, policy-driven cloud cost governance and optimization platform desi
 [![Build Status](https://img.shields.io/github/actions/workflow/status/MadhavPendyala/cloudcost-guard/ci.yml?branch=main)](https://github.com/MadhavPendyala/cloudcost-guard/actions)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Celery](https://img.shields.io/badge/Celery-Queue-green?logo=celery&logoColor=white)](https://docs.celeryq.dev/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![React](https://img.shields.io/badge/React-18%2B-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 
 </div>
@@ -49,11 +53,11 @@ An automated, policy-driven cloud cost governance and optimization platform desi
         v                             v
  [ Slack Alerts ]            [ Auto-Remediation ]
 ```
+---
  🛠️ Tech Stack
 
-  Core Engine:** Python (FastAPI, Celery)
-  ML/Anomalies:** Scikit-learn (Isolation Forest)
-  Cloud SDKs:** Boto3, Azure SDK, Google Cloud Client Libraries
-  Database:** PostgreSQL (with SQLAlchemy ORM)
-  Frontend:** React, Tailwind CSS (optional dashboard view)
-
+* **Core Engine:** Python (FastAPI, Celery)
+* **ML / Anomalies:** Scikit-learn (Isolation Forest)
+* **Cloud SDKs:** Boto3 (AWS), Azure SDK, Google Cloud Client Libraries
+* **Database:** PostgreSQL (with SQLAlchemy ORM)
+* **Frontend:** React, Tailwind CSS (Optional Dashboard View)
