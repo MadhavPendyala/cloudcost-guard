@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f4f6"><title>CloudCost Guard | Account</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--border:#d7dbe0;--text:#17191d;--muted:#626873;--shadow:rgba(0,0,0,.07);--accent:#252a31;--error:#b42318}body.dark{--bg:#090d14;--panel:#141c29;--border:#344257;--text:#f7f9fc;--muted:#c1ccda;--shadow:rgba(0,0,0,.38);--accent:#f3f4f6;--error:#ffaaa3}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .2s,color .2s}.top{max-width:1100px;margin:auto;padding:22px 24px;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;font-size:18px;font-weight:700}.brand-mark{width:42px;height:42px;object-fit:cover;border-radius:50%;border:1px solid var(--border);box-shadow:0 4px 14px var(--shadow)}.top-actions{display:flex;align-items:center;gap:10px}.theme-switch{display:flex;gap:4px;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--panel)}.theme-btn{border:0;border-radius:999px;background:transparent;color:var(--muted);padding:7px 9px;cursor:pointer}.theme-btn.active{background:var(--bg);color:var(--text)}.top-link{color:var(--text);text-decoration:none;border:1px solid var(--border);padding:8px 13px;border-radius:999px;font-size:13px}.top-link:hover{border-color:var(--text)}
+    .layout{max-width:1100px;margin:34px auto 56px;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}.story{padding:14px 0}.story-mark{width:104px;height:104px;object-fit:cover;border-radius:50%;border:1px solid var(--border);box-shadow:0 15px 36px var(--shadow);margin-bottom:24px}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}.story h1{font-size:clamp(36px,5vw,58px);letter-spacing:-.055em;line-height:1.04;margin:10px 0 18px}.story p{max-width:510px;color:var(--muted);font-size:17px}.benefits{margin-top:28px;display:grid;gap:12px;color:var(--muted);font-size:14px}.benefit{display:flex;gap:10px;align-items:center}.check{display:grid;place-items:center;width:22px;height:22px;border:1px solid var(--border);border-radius:50%;color:var(--text);font-size:12px}
+    .auth-card{padding:30px;background:var(--panel);border:1px solid var(--border);border-radius:20px;box-shadow:0 16px 48px var(--shadow)}.auth-card h2{font-size:25px;letter-spacing:-.03em;margin:0 0 5px}.subtext{margin:0 0 22px;color:var(--muted)}.field{display:grid;gap:6px;margin:14px 0}.field label{font-size:13px;font-weight:600}.field input{width:100%;height:45px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit;outline:none}.field input:focus{border-color:var(--text);box-shadow:0 0 0 3px var(--shadow)}.submit{width:100%;margin-top:8px;padding:12px 16px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:inherit;font-weight:700;cursor:pointer}.submit:disabled{opacity:.6;cursor:wait}.switch-copy{text-align:center;color:var(--muted);font-size:14px;margin:18px 0 0}.switch-copy a{color:var(--text);font-weight:650}.message{min-height:22px;margin:12px 0 0;color:var(--error);font-size:13px}.message.success{color:var(--muted)}.password-hint{font-size:12px;color:var(--muted)}.hidden{display:none!important}
+    @media(max-width:760px){.layout{grid-template-columns:1fr;max-width:520px;gap:18px;margin-top:18px}.story{text-align:center}.story p{margin-left:auto;margin-right:auto}.story-mark{width:78px;height:78px;margin-bottom:12px}.benefits{display:none}.story h1{font-size:38px}.auth-card{padding:24px}.top{padding:16px}}
+  </style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img class="brand-mark" src="/logo.svg" alt="CloudCost Guard circular logo"><span>CloudCost Guard</span></a>
+  <div class="top-actions">
+    <div class="theme-switch" aria-label="Theme switcher"><button class="theme-btn" data-theme="light" type="button" aria-label="Light theme">☀️</button><button class="theme-btn" data-theme="dark" type="button" aria-label="Dark theme">🌙</button></div>
+    <a class="top-link" id="top-auth-link" href="/login">Log in</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="story">
+    <img class="story-mark" src="/logo.svg" alt="CloudCost Guard logo">
+    <div class="eyebrow">Cloud cost visibility</div>
+    <h1 id="story-title">Your cloud spend,<br>in focus.</h1>
+    <p>Create an account or sign in to continue to cost monitoring, anomaly detection, and optimization tools.</p>
+    <div class="benefits"><div class="benefit"><span class="check">✓</span><span>Review cost trends and potential anomalies</span></div><div class="benefit"><span class="check">✓</span><span>Upload and analyze cost exports</span></div><div class="benefit"><span class="check">✓</span><span>Use one account across the app</span></div></div>
+  </section>
+  <section class="auth-card" aria-labelledby="form-title">
+    <h2 id="form-title">Welcome back</h2><p class="subtext" id="form-subtext">Log in to your CloudCost Guard account.</p>
+    <form id="auth-form" novalidate>
+      <div class="field hidden" id="name-field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" maxlength="80" placeholder="Your name"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@company.com"></div>
+      <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="At least 8 characters"><span class="password-hint hidden" id="password-hint">Use at least 8 characters.</span></div>
+      <button class="submit" id="submit-button" type="submit">Log in</button>
+      <p class="message" id="message" role="status" aria-live="polite"></p>
+    </form>
+    <p class="switch-copy" id="switch-copy"></p><p class="password-hint">This demo installation shares one cost dataset across accounts; sign-in does not isolate uploaded cost data.</p>
+  </section>
+</main>
+<script>
+const signup=location.pathname==='/signup';document.title=`CloudCost Guard | ${signup?'Sign up':'Log in'}`;
+const title=document.getElementById('form-title'),subtext=document.getElementById('form-subtext'),button=document.getElementById('submit-button'),nameField=document.getElementById('name-field'),password=document.getElementById('password'),message=document.getElementById('message'),switchCopy=document.getElementById('switch-copy');
+if(signup){title.textContent='Create your account';subtext.textContent='Sign up to start using CloudCost Guard.';button.textContent='Create account';nameField.classList.remove('hidden');document.getElementById('name').required=true;password.autocomplete='new-password';document.getElementById('password-hint').classList.remove('hidden');switchCopy.innerHTML='Already have an account? <a href="/login">Log in</a>';document.getElementById('top-auth-link').textContent='Log in';document.getElementById('top-auth-link').href='/login';}
+else{title.textContent='Welcome back';subtext.textContent='Log in to your CloudCost Guard account.';switchCopy.innerHTML='New to CloudCost Guard? <a href="/signup">Create an account</a>';}
+const applyTheme=theme=>{document.body.classList.toggle('dark',theme==='dark');document.querySelectorAll('.theme-btn').forEach(item=>item.classList.toggle('active',item.dataset.theme===theme));document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#0d0f12':'#f3f4f6';localStorage.setItem('cloudcost-theme',theme)};
+applyTheme(localStorage.getItem('cloudcost-theme')||'light');document.querySelectorAll('.theme-btn').forEach(item=>item.addEventListener('click',()=>applyTheme(item.dataset.theme)));
+document.getElementById('auth-form').addEventListener('submit',async event=>{event.preventDefault();message.textContent='';message.classList.remove('success');if(!event.currentTarget.reportValidity())return;button.disabled=true;button.textContent=signup?'Creating account…':'Logging in…';try{const payload={email:document.getElementById('email').value,password:password.value};if(signup)payload.name=document.getElementById('name').value;const response=await fetch(`/api/auth/${signup?'signup':'login'}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await response.json();if(!response.ok)throw new Error(data.error||'Unable to continue.');window.location.assign(data.next||'/cost-optimization');}catch(error){message.textContent=error.message;}finally{button.disabled=false;button.textContent=signup?'Create account':'Log in';}});
+</script>
+</body>
+</html>

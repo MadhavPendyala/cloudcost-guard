@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudCost Guard</title>
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#eef1f4; --bg-elev:#f8fafc; --panel:#ffffff; --panel-alt:#f2f6fb; --border:#d5dce2; --text:#111827; --muted:#5b6b77; --primary:#0f766e; --primary-strong:#0a5d59; --primary-soft:rgba(15,118,110,.12); --accent:#14b8a6; --danger:#d9480f; --shadow:rgba(17,24,39,.08);
+}
+body.dark{
+  --bg:#090d14; --bg-elev:#111a28; --panel:#141c29; --panel-alt:#1c293a; --border:#344257; --text:#f7f9fc; --muted:#c1ccda; --primary:#5eead4; --primary-strong:#94f6e7; --primary-soft:rgba(94,234,212,.18); --accent:#7dd3fc; --danger:#ff9b91; --shadow:rgba(0,0,0,.38);
+}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);transition:background .25s ease,color .25s ease}
+main{max-width:1040px;margin:0 auto;padding:20px 16px 48px}h1{margin:0 0 4px;font-size:26px}
+.brand{display:flex;align-items:center;gap:12px;line-height:1.1;margin:0 0 4px}
+.logo-mark{width:42px;height:42px;display:block;border-radius:12px;box-shadow:0 8px 18px var(--shadow)}
+.kpi{display:flex;flex-wrap:wrap;gap:8px 32px;margin:12px 0}.kpi b{font-size:26px;display:block}.kpi span{color:var(--muted);font-size:13px}
+.box{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px;box-shadow:0 2px 10px var(--shadow)}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}label{font-size:13px;color:var(--muted)}
+select,input[type=number]{width:100%;padding:6px;border:1px solid var(--border);border-radius:6px;font:inherit;background:var(--bg-elev);color:var(--text);outline:none}input[type=range]{width:100%}
+button{font:inherit;padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;transition:all .2s ease}button:hover{transform:translateY(-1px)}button.p{background:var(--primary);color:#0b1320;border-color:var(--primary)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border)}th{color:var(--muted);font-weight:500}
+.bad{color:var(--danger);font-weight:600}#msg{color:var(--muted);font-size:13px}.wrap{overflow-x:auto}
+.theme-toggle{display:flex;justify-content:flex-end;margin:0 0 12px}.theme-switch{display:inline-flex;gap:6px;padding:6px;border-radius:999px;background:var(--panel);border:1px solid var(--border);box-shadow:0 2px 12px var(--shadow)}
+.site-header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 0 16px}.site-header .brand{margin:0}.site-actions{display:flex;align-items:center;gap:8px}.auth-link{padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:var(--panel);color:var(--text);font-size:13px;text-decoration:none;white-space:nowrap}.auth-link.primary{background:var(--text);color:var(--bg)}body.dark .auth-link[data-logout]{background:#2b3a50;border-color:#8194b0;color:#fff;font-weight:700}body:not(.dark) .auth-link[data-logout]{background:#eef1f4;border-color:#687386;color:#17191d;font-weight:700}.auth-link[data-logout]:hover{filter:brightness(1.12)}.auth-link[data-logout]:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.theme-btn{padding:6px 10px;border-radius:999px;border:1px solid transparent;font-size:12px;background:transparent;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.theme-btn.active{background:var(--primary-soft);color:var(--text);border-color:var(--border)}
+.theme-btn .icon{font-size:13px;line-height:1}
+.info-grid,.company-grid,.testimonial-grid{display:grid;gap:14px;margin:18px 0 28px}
+.info-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.info-card,.company-card,.testimonial-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.02)}
+.info-card h3,.company-card h3,.testimonial-card h3{margin:0 0 8px;font-size:15px}
+.info-card p,.company-card p,.testimonial-card p{margin:0;color:var(--muted);line-height:1.5}
+.company-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+.company-card{cursor:pointer;transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;min-height:110px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.company-card:hover,.company-card.active{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 8px 18px var(--shadow)}
+.company-badge{font-weight:700;font-size:18px;letter-spacing:.06em;display:inline-block;margin-bottom:6px}
+.testimonial-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.testimonial-card{cursor:pointer;min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
+.testimonial-card .quote{font-size:14px;line-height:1.6;color:var(--text)}
+.testimonial-card small{color:var(--muted)}
+.detail-panel{display:none;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin:10px 0 20px}
+.detail-panel.active{display:block}
+.detail-panel h4{margin:0 0 8px;font-size:16px}
+.detail-panel p{margin:0;color:var(--muted);line-height:1.6}
+.dash-nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.dash-nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border:1px solid var(--border);border-radius:999px}.dash-nav a:hover{color:var(--text);border-color:var(--text)}
+.hero{padding:20px 0 6px}.hero h2{font-size:clamp(28px,5vw,42px);line-height:1.12;letter-spacing:-.04em;margin:10px 0}.hero p{max-width:720px;color:var(--muted);margin:8px 0 18px}.section{margin:38px 0}.section-heading{margin:0 0 6px;font-size:23px;letter-spacing:-.025em}.section-lead{color:var(--muted);margin:0 0 18px;max-width:760px}
+.explainer-grid,.playbook-grid,.review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.explainer-card,.playbook-card,.review-card{padding:18px;background:var(--panel);border:1px solid var(--border);border-radius:14px;box-shadow:0 3px 16px var(--shadow)}
+.explainer-card h3,.playbook-card h3{font-size:16px;margin:0 0 8px}.explainer-card p,.playbook-card p{color:var(--muted);margin:0;line-height:1.6}.step-number{font-size:12px;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-bottom:8px}.graph-box{height:340px;position:relative}.graph-note{color:var(--muted);font-size:12px;margin:8px 2px 0}.rating{color:#9a6700;letter-spacing:.12em;font-size:17px}.dark .rating{color:#ffd166}.rating strong{color:var(--text);letter-spacing:normal;font-size:14px;margin-left:6px}.review-card blockquote{margin:12px 0;color:var(--text);font-size:14px;line-height:1.65}.review-card footer{font-size:13px;color:var(--muted)}.review-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.review-meta{color:var(--muted);font-size:13px}.review-text{margin:12px 0;white-space:pre-wrap}.review-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.review-actions button,.review-edit button{padding:6px 11px;border:1px solid var(--border);border-radius:999px;background:var(--panel);color:var(--text);cursor:pointer}.review-actions button.selected{border-color:var(--text);font-weight:700}.review-edit{display:grid;gap:10px;margin-top:12px}.review-edit input,.review-edit textarea,.review-edit select{width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--bg-elev);color:var(--text);font:inherit}.review-label{display:inline-block;margin-top:10px;padding:3px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px}
+@media(max-width:560px){.graph-box{height:270px}.section{margin:28px 0}.dash-nav{gap:6px}}
+</style></head><body><main>
+<header class="site-header">
+  <h1 class="brand"><img class="logo-mark" src="/logo.svg" alt="CloudCost Guard logo"><span>CloudCost Guard</span></h1>
+  <div class="site-actions" data-auth-links>
+    <div class="theme-switch" aria-label="Theme switcher">
+      <button class="theme-btn active" data-theme="light" type="button"><span class="icon">☀️</span>Light</button>
+      <button class="theme-btn" data-theme="dark" type="button"><span class="icon">🌙</span>Dark</button>
+    </div>
+    <a class="auth-link" href="/login" data-login>Log in</a><a class="auth-link primary" href="/signup" data-signup>Sign up</a><span data-user-name hidden></span><button class="auth-link" type="button" data-logout hidden>Log out</button>
+  </div>
+</header>
+<p><a href="/">Home</a> · Cost optimization</p>
+<div id="msg">Cloud cost monitoring with ML anomaly detection.</div>
+<div class="kpi"><div><b id="k1">0</b><span>anomalies</span></div><div><b id="k2">$0</b><span>spend, last 30 days</span></div><div><b id="k3">$0</b><span>projected next 30 days</span></div></div>
+<div class="box" id="bud"></div>
+<section class="section" id="live-dashboard"><h2 class="section-heading">Cost and anomaly graph</h2><div class="box"><canvas id="c" height="110"></canvas></div>
+<div class="box ctl">
+<label>Service<select id="svc"><option>All</option><option>EC2</option><option>RDS</option><option>S3</option><option>Lambda</option><option>Data Transfer</option></select></label>
+<label>Method<select id="method"><option value="zscore">Rolling z-score</option><option value="iforest">Isolation Forest (ML)</option></select></label>
+<label id="l1">Window: <b id="wv">14</b> days<input type="range" id="win" min="7" max="21" value="14"></label>
+<label id="l2">Threshold: <b id="tv">3.0</b> sigma<input type="range" id="thr" min="15" max="45" value="30"></label>
+<label id="l3" style="display:none">Expected outliers: <b id="cv">4</b>%<input type="range" id="cont" min="1" max="15" value="4"></label>
+<label>Monthly budget ($)<input type="number" id="bud_in" value="30000" step="500"></label></div>
+<div class="btns"><button class="p" id="spike">Inject simulated spike</button><button id="next">Add simulated day</button><button id="live">Start simulated feed</button><button id="reset">Reset demo data</button>
+<button id="up">Upload CSV</button><input type="file" id="file" accept=".csv" hidden></div>
+<h3>Alerts</h3><div class="box wrap" id="tbl"></div></section>
+</main><script>
+const $=id=>document.getElementById(id),fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const setStatus=(msg, bad=false)=>{const el=$('msg');el.textContent=msg;el.style.color=bad?'#d9480f':'#5b6b77';};
+const api=(p,o)=>fetch('/api/'+p,o).then(r=>r.json().then(j=>{if(!r.ok)throw new Error(j.error||'Request failed');return j}));
+const post=(p,b)=>api(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})});
+const run=f=>async()=>{try{const res=await f();if(res&&res.message) setStatus(res.message); await refresh(); return res;}catch(e){setStatus(e.message,true); throw e;}};
+let chart,timer;
+async function refresh(){
+ const svc=$('svc').value,m=$('method').value,w=$('win').value,t=$('thr').value/10,c=$('cont').value/100;
+ $('wv').textContent=w;$('tv').textContent=t.toFixed(1);$('cv').textContent=Math.round(c*100);
+ $('l1').style.display=$('l2').style.display=m==='zscore'?'':'none';$('l3').style.display=m==='iforest'?'':'none';
+ const [d,an,fc]=await Promise.all([api('costs'),api(`anomalies?service=${encodeURIComponent(svc)}&method=${m}&window=${w}&threshold=${t}&contamination=${c}`),api('forecast?budget='+$('bud_in').value)]);
+ const vals=svc==='All'?d.total:d.services[svc],pts=vals.map(()=>null);an.forEach(a=>pts[a.i]=a.value);
+ if(!chart){const dark=document.body.classList.contains('dark');chart=new Chart($('c'),{type:'line',data:{labels:[],datasets:[{label:'Daily cost',data:[],borderColor:dark?'#5eead4':'#0f766e',backgroundColor:dark?'rgba(94,234,212,.14)':'rgba(15,118,110,.08)',fill:true,borderWidth:3,pointRadius:0,tension:.2},{label:'Anomaly',data:[],showLine:false,pointRadius:dark?7:6,pointHoverRadius:9,backgroundColor:dark?'#ff8278':'#d9480f',borderColor:dark?'#fff1f0':'#fff',borderWidth:2}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:dark?'#f7f9fc':'#111827'}},tooltip:{backgroundColor:dark?'#202c3d':'#17191d',titleColor:'#fff',bodyColor:'#fff',borderColor:dark?'#5eead4':'#59636f',borderWidth:1}},scales:{x:{ticks:{color:dark?'#c1ccda':'#5b6b77'},grid:{display:false}},y:{ticks:{color:dark?'#c1ccda':'#5b6b77',callback:v=>fmt(v)},grid:{color:dark?'#344257':'#d5dce2'}}}}});}
+ chart.data.labels=d.dates;chart.data.datasets[0].data=vals;chart.data.datasets[1].data=pts;chart.update();
+ $('k1').textContent=an.length;$('k2').textContent=fmt(fc.last30);$('k3').textContent=fmt(fc.projected);
+ $('bud').innerHTML=`Projected spend is <b>${Math.abs(Math.round((fc.projected/fc.budget-1)*100))}% ${fc.over?'over':'under'}</b> the ${fmt(fc.budget)} budget.`;
+ $('tbl').innerHTML=an.length?'<table><tr><th>Date</th><th>Cost</th><th>Expected</th><th>Score</th><th>Likely cause</th></tr>'+an.slice().reverse().map(a=>`<tr><td>${esc(a.date)}</td><td>${fmt(a.value)}</td><td>${fmt(a.expected)}</td><td class="bad">${a.score.toFixed(2)}</td><td>${esc(a.cause)}</td></tr>`).join('')+'</table>':'No anomalies at these settings.';
+}
+['svc','method','win','thr','cont','bud_in'].forEach(i=>$(i).addEventListener('input',()=>refresh().catch(e=>setStatus(e.message,true))));
+$('spike').onclick=run(()=>post('spike',{service:$('svc').value}));$('next').onclick=run(()=>post('next'));$('reset').onclick=run(()=>post('reset'));
+$('live').onclick=e=>{if(timer){clearInterval(timer);timer=null;e.target.textContent='Start simulated feed'}else{timer=setInterval(()=>post('next').then(()=>refresh()).catch(e=>setStatus(e.message,true)),1500);e.target.textContent='Stop simulated feed'}};
+$('up').onclick=()=>$('file').click();
+$('file').onchange=run(async()=>{const file=$('file').files[0]; if(!file){setStatus('Choose a CSV file before uploading.', true); return null;} const f=new FormData();f.append('file', file); const res = await api('upload',{method:'POST',body:f}); $('file').value=''; return res;});
+const applyTheme=(theme)=>{
+  document.body.classList.toggle('dark', theme === 'dark');
+  document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
+  const color = theme === 'dark' ? '#0d1117' : '#eef1f4';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+  localStorage.setItem('cloudcost-theme', theme);
+  const dark=theme==='dark';
+  if(chart){chart.data.datasets[0].borderColor=dark?'#5eead4':'#0f766e';chart.data.datasets[0].backgroundColor=dark?'rgba(94,234,212,.14)':'rgba(15,118,110,.08)';chart.data.datasets[1].backgroundColor=dark?'#ff8278':'#d9480f';chart.data.datasets[1].borderColor=dark?'#fff1f0':'#fff';chart.data.datasets[1].pointRadius=dark?7:6;chart.options.plugins.legend.labels.color=dark?'#f7f9fc':'#111827';chart.options.plugins.tooltip.backgroundColor=dark?'#202c3d':'#17191d';chart.options.plugins.tooltip.borderColor=dark?'#5eead4':'#59636f';chart.options.scales.x.ticks.color=chart.options.scales.y.ticks.color=dark?'#c1ccda':'#5b6b77';chart.options.scales.y.grid.color=dark?'#344257':'#d5dce2';chart.update();}
+};
+const storedTheme = localStorage.getItem('cloudcost-theme') || 'light';
+applyTheme(storedTheme);
+document.querySelectorAll('.theme-btn').forEach(btn => btn.addEventListener('click', () => applyTheme(btn.dataset.theme)));
+refresh().catch(e=>setStatus(e.message,true));
+</script><script src="/site-header.js"></script></body></html>

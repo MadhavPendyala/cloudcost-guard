@@ -1,0 +1,22 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="32" y1="32" x2="224" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0EA5A4"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="spark" x1="72" y1="72" x2="188" y2="188" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0FDFA"/>
+      <stop offset="1" stop-color="#CCFBF1"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#bg)"/>
+  <path d="M68 163.5V98.5C68 94.3579 71.3579 91 75.5 91H95.5C99.6421 91 103 94.3579 103 98.5V163.5C103 167.642 99.6421 171 95.5 171H75.5C71.3579 171 68 167.642 68 163.5Z" fill="url(#spark)" fill-opacity="0.2"/>
+  <path d="M111 163.5V130.5C111 126.358 114.358 123 118.5 123H138.5C142.642 123 146 126.358 146 130.5V163.5C146 167.642 142.642 171 138.5 171H118.5C114.358 171 111 167.642 111 163.5Z" fill="url(#spark)" fill-opacity="0.3"/>
+  <path d="M154 163.5V108.5C154 104.358 157.358 101 161.5 101H181.5C185.642 101 189 104.358 189 108.5V163.5C189 167.642 185.642 171 181.5 171H161.5C157.358 171 154 167.642 154 163.5Z" fill="url(#spark)" fill-opacity="0.38"/>
+  <path d="M82 150L109 132L132 141L181 98" stroke="#F0FDFA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M167 98L181 98L181 112" stroke="#F0FDFA" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="82" cy="150" r="10" fill="#F0FDFA"/>
+  <circle cx="109" cy="132" r="10" fill="#F0FDFA"/>
+  <circle cx="132" cy="141" r="10" fill="#F0FDFA"/>
+  <circle cx="181" cy="98" r="10" fill="#F0FDFA"/>
+</svg>

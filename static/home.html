@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef1f4">
+  <title>CloudCost Guard | Home</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--border:#d7dbe0;--text:#17191d;--muted:#626873;--shadow:rgba(0,0,0,.06)}
+    body.dark{--bg:#090d14;--panel:#141c29;--border:#344257;--text:#f7f9fc;--muted:#c1ccda;--shadow:rgba(0,0,0,.35)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .2s,color .2s}
+    main{max-width:960px;margin:auto;padding:28px 20px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:44px}.brand{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-size:20px;font-weight:700}.brand img{width:42px;height:42px;border-radius:12px}
+    .top-actions{display:flex;align-items:center;gap:8px}.theme-switch{display:flex;gap:6px;padding:5px;border:1px solid var(--border);border-radius:999px;background:var(--panel)}.theme-btn{border:0;border-radius:999px;background:transparent;color:var(--muted);padding:7px 11px;cursor:pointer}.theme-btn.active{background:var(--bg);color:var(--text)}.auth-link{padding:8px 13px;border:1px solid var(--border);border-radius:999px;color:var(--text);font-size:13px;text-decoration:none;white-space:nowrap}.auth-link:hover{border-color:var(--text)}.auth-link.primary{background:var(--text);color:var(--bg)}body.dark .auth-link[data-logout]{background:#2b3a50;border-color:#8194b0;color:#fff;font-weight:700}body:not(.dark) .auth-link[data-logout]{background:#eef1f4;border-color:#687386;color:#17191d;font-weight:700}.auth-link[data-logout]:hover{filter:brightness(1.12)}.auth-link[data-logout]:focus-visible{outline:3px solid #5eead4;outline-offset:2px}
+    h1{font-size:clamp(34px,7vw,60px);line-height:1.05;letter-spacing:-.055em;margin:0 0 14px}.intro{color:var(--muted);margin:0 0 36px;max-width:600px}.section-label{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:34px 0 12px}
+    .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.link-card{min-height:104px;display:flex;align-items:center;justify-content:space-between;padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--panel);color:var(--text);text-decoration:none;box-shadow:0 5px 20px var(--shadow);transition:transform .2s,border-color .2s}.link-card:hover{transform:translateY(-3px);border-color:var(--text)}.link-card h2{font-size:17px;margin:0}.arrow{color:var(--muted);font-size:22px}
+    .dashboard{display:flex;margin-top:28px}.dashboard .link-card{min-height:60px;width:100%;font-weight:600}.footer{margin-top:48px;color:var(--muted);font-size:13px}
+    .anomaly-panel{margin:30px 0 6px;padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 5px 20px var(--shadow)}.anomaly-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.anomaly-head h2{font-size:20px;margin:0}.anomaly-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.anomaly-filter{padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}.home-chart{height:300px;position:relative;margin-top:16px}.anomaly-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin-top:12px;color:var(--muted);font-size:13px}.anomaly-count{color:var(--text);font-weight:700}.graph-legend{display:inline-flex;align-items:center;gap:7px}.legend-line{width:20px;border-top:2px solid #59636f}.dark .legend-line{border-color:#5eead4}.legend-dot{width:9px;height:9px;border-radius:50%;background:#c24136;display:inline-block}.dark .legend-dot{background:#ff8278}.chart-error{color:#b42318;font-size:13px}.dark .chart-error{color:#ff9b91}
+    @media(max-width:520px){main{padding:20px 16px 40px}.top{margin-bottom:34px}.brand{font-size:17px}.brand img{width:36px;height:36px}.anomaly-panel{padding:15px}.anomaly-head{display:block}.anomaly-filter{margin-top:10px}.home-chart{height:250px}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a class="brand" href="/"><img src="/logo.svg" alt=""><span>CloudCost Guard</span></a>
+    <div class="top-actions" data-auth-links>
+      <div class="theme-switch" aria-label="Theme switcher">
+        <button class="theme-btn" data-theme="light" type="button" aria-label="Light theme">☀️</button>
+        <button class="theme-btn" data-theme="dark" type="button" aria-label="Dark theme">🌙</button>
+      </div>
+      <a class="auth-link" href="/login" data-login>Log in</a><a class="auth-link primary" href="/signup" data-signup>Sign up</a><span data-user-name hidden></span><button class="auth-link" type="button" data-logout hidden>Log out</button>
+    </div>
+  </header>
+  <h1>Cloud costs,<br>under control.</h1>
+  <section class="anomaly-panel" aria-labelledby="anomaly-title">
+    <div class="anomaly-head"><div><h2 id="anomaly-title">Cost anomaly overview</h2><p>Recent daily costs and detected deviations from the dataset currently loaded in this app.</p></div><label><span class="section-label" style="margin:0 6px 0 0">Service</span><select id="home-service" class="anomaly-filter"><option value="All">All services</option><option>EC2</option><option>RDS</option><option>S3</option><option>Lambda</option><option>Data Transfer</option></select></label></div>
+    <div class="home-chart"><canvas id="home-anomaly-chart" aria-label="Daily cost and detected anomaly graph"></canvas></div>
+    <div class="anomaly-meta"><span class="graph-legend"><i class="legend-line"></i>Daily cost</span><span class="graph-legend"><i class="legend-dot"></i>Detected anomaly</span><span id="home-anomaly-count" class="anomaly-count">Loading anomalies…</span><span id="home-cost-source"></span></div>
+    <p id="home-chart-error" class="chart-error" role="status"></p>
+  </section>
+  <p class="section-label">Pages</p>
+  <nav class="links" aria-label="CloudCost Guard pages">
+    <a class="link-card" href="/overview"><h2>Overview</h2><span class="arrow">↗</span></a>
+    <a class="link-card" href="/how-it-works"><h2>How it works</h2><span class="arrow">↗</span></a>
+    <a class="link-card" href="/reviews"><h2>Reviews</h2><span class="arrow">↗</span></a>
+    <a class="link-card" href="/cost-data"><h2>Cost data</h2><span class="arrow">↗</span></a>
+    <a class="link-card" href="/company-playbooks"><h2>Company playbooks</h2><span class="arrow">↗</span></a>
+  </nav>
+  <div class="dashboard"><a class="link-card" href="/cost-optimization"><span>Cost optimization workspace</span><span class="arrow">→</span></a></div>
+</main>
+<script>
+const setTheme=theme=>{document.body.classList.toggle('dark',theme==='dark');document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===theme));document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#0d0f12':'#eef1f4';localStorage.setItem('cloudcost-theme',theme)};
+setTheme(localStorage.getItem('cloudcost-theme')||'light');
+document.querySelectorAll('.theme-btn').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
+let anomalyChart;
+const homeFmt=value=>'$'+Math.round(value).toLocaleString('en-US');
+async function loadAnomalyGraph(){
+  const errorNode=document.getElementById('home-chart-error');
+  try{
+    if(!window.Chart)throw new Error('The chart library did not load. Check your internet connection and reload.');
+    const service=document.getElementById('home-service').value;
+    const [costsResponse,anomaliesResponse]=await Promise.all([
+      fetch('/api/costs').then(async response=>{if(!response.ok)throw new Error('Could not load costs.');return response.json();}),
+      fetch(`/api/anomalies?service=${encodeURIComponent(service)}&method=zscore&window=14&threshold=3`).then(async response=>{if(!response.ok)throw new Error('Could not load anomaly analysis.');return response.json();})
+    ]);
+    const start=Math.max(0,costsResponse.dates.length-30),dates=costsResponse.dates.slice(start);
+    const values=service==='All'?costsResponse.total:costsResponse.services[service]||[];
+    const recentValues=values.slice(start),anomalyPoints=recentValues.map(()=>null);
+    anomaliesResponse.forEach(item=>{const index=item.i-start;if(index>=0&&index<anomalyPoints.length)anomalyPoints[index]=item.value;});
+    const dark=document.body.classList.contains('dark'),textColor=dark?'#c1ccda':'#626873',gridColor=dark?'#344257':'#d7dbe0';
+    document.getElementById('home-anomaly-count').textContent=`${anomaliesResponse.filter(item=>item.i>=start).length} detected in the latest ${dates.length} days`;
+    document.getElementById('home-cost-source').textContent=`Data source: ${costsResponse.source}.`;
+    const config={type:'line',data:{labels:dates,datasets:[{label:'Daily cost',data:recentValues,borderColor:dark?'#5eead4':'#334155',backgroundColor:dark?'rgba(94,234,212,.14)':'rgba(51,65,85,.08)',fill:true,borderWidth:3,pointRadius:0,tension:.25},{label:'Detected anomaly',data:anomalyPoints,showLine:false,pointRadius:dark?7:6,pointHoverRadius:9,backgroundColor:dark?'#ff8278':'#c24136',borderColor:dark?'#fff1f0':'#fff',borderWidth:dark?2:1}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:dark?'#202c3d':'#17191d',titleColor:'#fff',bodyColor:'#fff',borderColor:dark?'#5eead4':'#59636f',borderWidth:1,callbacks:{label:context=>`${context.dataset.label}: ${homeFmt(context.parsed.y)}`}}},scales:{x:{ticks:{color:textColor,maxTicksLimit:8},grid:{display:false}},y:{beginAtZero:true,ticks:{color:textColor,callback:value=>homeFmt(value)},grid:{color:gridColor}}}}};
+    if(anomalyChart){anomalyChart.data=config.data;anomalyChart.options=config.options;anomalyChart.update();}else{anomalyChart=new Chart(document.getElementById('home-anomaly-chart'),config);}
+    errorNode.textContent='';
+  }catch(error){errorNode.textContent=error.message;document.getElementById('home-anomaly-count').textContent='Anomaly data unavailable';}
+}
+document.getElementById('home-service').addEventListener('change',loadAnomalyGraph);
+document.querySelectorAll('.theme-btn').forEach(button=>button.addEventListener('click',loadAnomalyGraph));
+loadAnomalyGraph();
+</script>
+<script src="/site-header.js"></script>
+</body>
+</html>
